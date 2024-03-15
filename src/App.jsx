@@ -4,6 +4,7 @@ import SignInForm from './components/SignInForm';
 import Editor from "./pages/editor/App";
 import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
+import Drag from './pages/drag/Drag';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Initial login state
@@ -52,6 +53,11 @@ function App() {
         <Route
           path="/dashboard"
           element={<Dashboard />}
+        />
+
+        <Route 
+          path='/custom'
+          element={<Drag />}
         />
 
         {/* Public Route */}
