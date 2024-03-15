@@ -25,17 +25,17 @@ export const nodes = [
     },
     position: { x: 400, y: 100 },
   },
-  // {
-  //   id: '4',
-  //   type: 'custom',
-  //   position: { x: 100, y: 200 },
-  //   data: {
-  //     selects: {
-  //       'handle-0': 'smoothstep',
-  //       'handle-1': 'smoothstep',
-  //     },
-  //   },
-  // },
+  {
+    id: '4',
+    type: 'custom',
+    position: { x: 100, y: 200 },
+    data: {
+      selects: {
+        'handle-0': 'smoothstep',
+        'handle-1': 'smoothstep',
+      },
+    },
+  },
   // {
   //   id: '5',
   //   type: 'output',

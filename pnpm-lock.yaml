@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@firebase/storage':
+    specifier: ^0.12.2
+    version: 0.12.2(@firebase/app@0.9.28)
   '@grapesjs/react':
     specifier: ^1.0.0
     version: 1.0.0
