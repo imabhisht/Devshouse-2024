@@ -22,7 +22,7 @@ const FileUpload = memo(({ data, isConnectable, onFileUpload }) => {
 
             
 
-          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-black px-6 py-10">
                <Handle
                 type="target"
                 position={Position.Left}

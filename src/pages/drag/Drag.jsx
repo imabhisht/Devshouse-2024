@@ -13,7 +13,8 @@ import Sidebar from './Sidebar';
 import './index.css';
 import FileUpload from './Custom/FileUpload';
 import EmbeddingsNode from './Custom/Embeddings';
-
+import InputPrompt from './Custom/InputPrompt';
+import ChatEngine from './Custom/ChatEngine'
 import { storage } from '../../firebase'; // Import Firebase storage
 
 
@@ -31,13 +32,15 @@ const getId = () => `dndnode_${id++}`;
 const customNodeTypes = {
   fileUpload: FileUpload,
   embeddings: EmbeddingsNode,
+  inputPrompt: InputPrompt,
+  chatEngine: ChatEngine
 };
 
 const DnDFlow = () => {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [reactFlowInstance,  setReactFlowInstance] = useState(null);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),

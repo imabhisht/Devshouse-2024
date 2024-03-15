@@ -15,6 +15,12 @@ export default () => {
       <div className="dndnode" onDragStart={(event) => onDragStart(event, 'embeddings')} draggable>
         Embeddings
       </div>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'inputPrompt')} draggable>
+        Input Prompt
+      </div>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, 'chatEngine')} draggable>
+        Chat Engine Prompt
+      </div>
       <div className="dndnode input" onDragStart={(event) => onDragStart(event, 'input')} draggable>
         Input Node
       </div>
