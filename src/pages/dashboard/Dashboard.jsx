@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
@@ -62,7 +63,7 @@ export default function Example() {
         <body class="h-full overflow-hidden">
         ```
       */}
-      <div className="flex h-full flex-col">
+      <div className="flex h-screen flex-col">
         {/* Top nav*/}
         <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
           {/* Logo area */}
@@ -340,24 +341,18 @@ export default function Example() {
           </nav>
 
           {/* Main area */}
-          <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">    
-            {/* Primary column */}
-            <section
-              aria-labelledby="primary-heading"
-              className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last"
-            >
-              <h1 id="primary-heading" className="sr-only">
-                Home
-              </h1>
-              {/* Your content */}
-            </section>
-
-            {/* Secondary column (hidden on smaller screens) */}
-            <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
-              <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
-                {/* Your content */}
+          <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
+            {/* React Router Code */}
+            <div className="flex-1 min-w-0 bg-white lg:overflow-y-auto">
+              <div className="p-4 sm:p-6 lg:p-8">
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<h1>HElllo</h1>} />  {/* Matches the root path (/) */}
+                  <Route path="/about" element={<h1>About</h1>} />  {/* Matches the /about path */}
+                </Routes>
+              </BrowserRouter>
               </div>
-            </aside>
+            </div>
           </main>
         </div>
       </div>

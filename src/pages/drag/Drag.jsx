@@ -5,6 +5,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Controls,
+  Background
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -18,14 +19,7 @@ import ChatEngine from './Custom/ChatEngine'
 import { storage } from '../../firebase'; // Import Firebase storage
 
 
-const initialNodes = [
-//   // {
-//   //   id: '1',
-//   //   type: 'input',
-//   //   data: { label: 'input node' },
-//   //   position: { x: 250, y: 5 },
-//   // },
-];
+const initialNodes = [];
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -82,12 +76,6 @@ const DnDFlow = () => {
     [reactFlowInstance],
   );
 
-
-
-
-
-  
-
   return (
     <div className="dndflow">
       <ReactFlowProvider>
@@ -105,6 +93,8 @@ const DnDFlow = () => {
             nodeTypes={customNodeTypes}
           >
             <Controls />
+            <Background color="#aa3" gap={16} />
+
           </ReactFlow>
         </div>
         <Sidebar />
