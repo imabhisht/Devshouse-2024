@@ -23,19 +23,16 @@ const DetailsView = ({ selectedItem }) => (
 
 export default function Example() {
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const navigation = useNavigate();
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
-
-  const navigation = useNavigate();
-
 
   return (
     <div>
       <div className="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
         <div>
-          <h3 className="text-lg font-medium leading-6 text-gray-900">My Projects</h3>
+          <h3 className="text-lg font-medium leading-6 text-gray-900">My collection</h3>
           <p className="mt-2 max-w-4xl text-sm text-gray-500">
             Manage your personal projects. Download or upload your collection.
           </p>
@@ -54,7 +51,7 @@ export default function Example() {
             Upload Collection
           </button>
           <button
-            onClick={() => {navigation('/dragger')}}
+            onClick={() => navigation('/dragger')}
             type="button"
             className="ml-2 inline-flex items-center rounded-md border border-gray-300 bg-white hover:bg-gray-600 hover:text-white px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 text-gray-700 shadow-sm hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-2"
           >

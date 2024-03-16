@@ -31,7 +31,7 @@ import AWSComponent from "./Custom/AWSComponent"
 const initialNodes = [];
 
 let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = () => `${id++}`;
 const customNodeTypes = {
   fileUpload: FileUpload,
   embeddings: EmbeddingsNode,
@@ -95,16 +95,21 @@ const DnDFlow = () => {
 
   const handleWorkFlowSubmission = async(event) => {
     // event.preventDefault();
-    console.log("Workflow Submitted");
+    try {
+      console.log("Workflow Submitted");
     console.log(nodes);
     console.log(edges);
-    const dataxx2 = PraseJSON(nodes, edges);
+    const dataxx2 = await PraseJSON(nodes, edges);
 
     const datax = await updateProjectWorkflow({nodes,edges, dataxx2})
 
     console.log(datax);
 
     alert("Code is Updated");
+    } catch (error) {
+      alert(error);
+    }
+    
 
   }
 

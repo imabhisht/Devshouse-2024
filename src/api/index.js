@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:5000';
-
+// const user = "f79b7455-abe5-4ad7-b2dc-fe04143d683c"
 
 export const postProject = async (event) => {
     try {
@@ -8,7 +8,7 @@ export const postProject = async (event) => {
         return response;
     } catch (error) {
         alert(error)
-        throw error;
+        throw error; 
     }
 }
 
@@ -25,10 +25,7 @@ export const fetchProjects = async(event) => {
 
 export const updateProjectWorkflow = async(event) => {
     try {
-        //send it on body
-        const response = await axios.post("/workflows/65f5dc26ff97ee9ca3e3c830", {
-            ...event
-        });
+        const response = await axios.post("/workflows/cbd9843b-223e-4ec1-bd23-e34ae59e5ebd", event);
         console.log(response);
         return response
     } catch (error) {

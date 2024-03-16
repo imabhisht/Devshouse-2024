@@ -60,7 +60,7 @@ const AccordionItem = ({ id, title, items }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({HandleSubmission}) => {
   const accordionItems = [
     {
       id: '1',
@@ -94,18 +94,22 @@ const Sidebar = () => {
       id: '4',
       title: 'Large Language Models',
       items: [
-        { text: 'Chrome Vector Store', nodeType: 'chromeVectorStore', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
+        { text: 'Unified LLM', nodeType: 'chatEngine', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
       ]
     },
     {
       id: '5',
-      title: '',
+      title: 'Tool',
       items: [
         { text: 'Chrome Vector Store', nodeType: 'chromeVectorStore', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
       ]
     },
-    // Add more accordion items here if needed
   ];
+
+  const handleSaveButton = async() => {
+    // Save the current project workflow
+    console.log('Project workflow saved');
+  }
 
   return (
     <aside style={{ backgroundColor: '#222933' }} className="text-white p-10 fixed inset-y-0 right-0 w-80 top-[64px]">
@@ -118,6 +122,7 @@ const Sidebar = () => {
       <div className="absolute bottom-0 left-0 w-full mb-4">
         <div className="mx-4">
           <button
+            onClick={HandleSubmission}
             type="button"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
