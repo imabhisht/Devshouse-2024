@@ -1,5 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+// export default {
+//   content: [
+//     "./index.html",
+//     "./src/**/*.{js,ts,jsx,tsx}",
+//   ],
+//   theme: {
+//     extend: {},
+//   },
+//   darkMode: 'selector',
+//   plugins: [
+//     require('@tailwindcss/forms')
+//   ],
+
+
+
+
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -9,6 +25,6 @@ export default {
   },
   darkMode: 'selector',
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
   ],
 }
