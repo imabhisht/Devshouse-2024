@@ -13,14 +13,16 @@ const FileUpload = memo(({ id,data, isConnectable, onFileUpload }) => {
         const storage = getStorage();
         const storageRef = ref(storage, `uploads/${selectedFile.name}`);
 
-        // Store the File downloadable URL in local storage
-        const downloadUrl = await getDownloadURL(storageRef);
-        localStorage.setItem(id, downloadUrl);
+        
 
         // Upload the file to Firebase Storage
         uploadBytes(storageRef, selectedFile).then((snapshot) => {
             console.log('Uploaded a blob or file!');
         });
+
+        // Store the File downloadable URL in local storage
+        const downloadUrl = await getDownloadURL(storageRef);
+        localStorage.setItem(id, downloadUrl);
     };
 
     return (
@@ -35,7 +37,7 @@ const FileUpload = memo(({ id,data, isConnectable, onFileUpload }) => {
             <div className="px-4 py-5 sm:p-6">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">TextLoader</h3>
                 <div className="mt-5">
-                    <div className="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
+                    <div className="rounded-md bg-gray-50 px-6 py-5">
                         <h4 className="sr-only">File</h4>
                         <div className="sm:flex sm:items-start">
                             <svg className="h-8 w-auto sm:h-6 sm:flex-shrink-0" viewBox="0 0 36 24" aria-hidden="true">
@@ -55,7 +57,7 @@ const FileUpload = memo(({ id,data, isConnectable, onFileUpload }) => {
                         </div>
                         <div className="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                             <button
-                                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
+                                className="mt-4 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                             >
                                 <input onChange={handleFileChange} type="file" />
                             </button>

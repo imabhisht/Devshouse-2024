@@ -20,6 +20,9 @@ import TextLoader from "./Custom/TextLoader";
 import { storage } from '../../firebase'; // Import Firebase storage
 import CSVLoader from './Custom/CSVLoader';
 import JSONLoader from './Custom/JSONLoader';
+import OpenAIEmbeddings from "./Custom/OpenAIEmbeddings";
+import GeminiEmbeddings from "./Custom/GeminiEmbeddings";
+import HuggingFaceEmbeddings from "./Custom/HuggingFaceEmbeddings";
 
 const initialNodes = [];
 
@@ -32,7 +35,10 @@ const customNodeTypes = {
   chatEngine: ChatEngine,
   textLoader: TextLoader,
   csvLoader: CSVLoader,
-  jsonLoader: JSONLoader
+  jsonLoader: JSONLoader,
+  openaiEmbeddings: OpenAIEmbeddings,
+  geminiEmbeddings: GeminiEmbeddings,
+  huggingfaceEmbeddings: HuggingFaceEmbeddings
 };
 
 const DnDFlow = () => {

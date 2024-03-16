@@ -1,63 +1,70 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { Handle, Position } from "reactflow";
 import { Fragment } from "react";
-import { useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-
-const people = [
-  { id: 1, name: "Google Gemini Pro", online: true },
-  { id: 2, name: "Google Gemini Ultra", online: false },
-  { id: 3, name: "OpenAI GPT-3.5 Turbo", online: true                              },
-  { id: 4, name: 'OpenAI GPT-4 and GPT-4 Turbo', online: false },
-  { id: 5, name: 'Azure OpenAI Service', online: false },
-  { id: 6, name: 'OpenAI DALL·E', online: false },
-  // { id: 7, name: 'Caroline Schultz', online: true },
-  // { id: 8, name: 'Mason Heaney', online: false },
-  // { id: 9, name: 'Claudie Smitham', online: true },
-  // { id: 10, name: 'Emil Schaefer', online: false },
-]
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(" ");
 }
+const people = [
+    { id: 1, name: "text-embedding-3-small", online: true },
+    { id: 2, name: "text-embedding-3-large", online: true },
+    { id: 3, name: "ada v2", online: true                              },
+    { id: 4, name: 'text-embedding-2', online: false },
+    // { id: 5, name: 'Azure OpenAI Service', online: false },
+    // { id: 6, name: 'OpenAI DALL·E', online: false },
+    // { id: 7, name: 'Caroline Schultz', online: true },
+    // { id: 8, name: 'Mason Heaney', online: false },
+    // { id: 9, name: 'Claudie Smitham', online: true },
+    // { id: 10, name: 'Emil Schaefer', online: false },
+  ]
 
-const EmbeddingsNode = memo(({ data, isConnectable }) => {
-  const [selected, setSelected] = useState(people[3])
+const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {
+    // const [selected, setSelected] = useState(publishingOptions[0]);
+    const [selected, setSelected] = useState(people[3])
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
     };
 
+    const handleOptionChange = (option) => {
+        // setSelected(option);
+        // Store it in local storage
+        localStorage.setItem(`${id}`, `${option.title}`);
+    };
+
     return (
-        <div className="bg-white shadow sm:rounded-lg">
+        <div class="bg-white rounded-lg shadow-md p-6">
             <Handle
                 type="target"
                 position={Position.Left}
-                style={{ background: "#555" }}
+                style={{ background: "#555", width: "10px", height: "10px" }}
                 onConnect={(params) => console.log("handle onConnect", params)}
                 isConnectable={isConnectable}
             />
             <Handle
-                type="target"
-                position={Position.Top}
-                style={{ background: "#555" }}
-                onConnect={(params) => console.log("handle onConnect", params)}
-                isConnectable={isConnectable}
-            />
-            <Handle
-                type="target"
+                type="source"
                 position={Position.Right}
-                id="a"
-                style={{ background: "#555" }}
+                style={{ background: "#555", width: "10px", height: "10px" }}
+                onConnect={(params) => console.log("handle onConnect", params)}
                 isConnectable={isConnectable}
             />
-            <div className="px-2 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">HuggingFace Embeddings</h2>
+                <div class="bg-yellow-300 rounded-full w-6 h-6 flex items-center justify-center">
+                    <span class="text-white font-bold">&#9679;</span>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-4">Load text file.</p>
 
-
-              <Listbox value={selected} onChange={setSelected}>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2" for="file-path">
+                Embeddings Model
+                </label>
+                <Listbox value={selected} onChange={setSelected}>
                 {({ open }) => (
                   <>
-                    <Listbox.Label className="block text-sm font-medium text-gray-700">Fine Tune LLM (Multi-Modal Available)</Listbox.Label>
+                    {/* <Listbox.Label className="block text-sm font-medium text-gray-700">Fine Tune LLM (Multi-Modal Available)</Listbox.Label> */}
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                         <span className="flex items-center">
@@ -132,14 +139,29 @@ const EmbeddingsNode = memo(({ data, isConnectable }) => {
                   </>
                 )}
               </Listbox>
-            <Handle
-                type="source"
-                position={Position.Bottom}
-                id="a"
-                style={{ background: "#555" }}
-                isConnectable={isConnectable}
-            />
-        </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2" for="file-path">
+                    HuggingFace Api Key
+                </label>
+                <div>
+                    <div className="mt-1">
+                        <input
+                        type="text"
+                        name="text"
+                        id="text"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Enter API Key..."
+                        />
+                    </div>
+                    </div>
+            </div>
+
+            
+            <button class="bg-blue-500 text-white rounded-md px-4 py-2">
+                Create
+            </button>
         </div>
     );
 });
