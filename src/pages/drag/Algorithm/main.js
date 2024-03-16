@@ -154,12 +154,10 @@ export default async function PraseJSON(nodes,edges){
       }
   }
 
-  const lstorate  = {
-    "dndnode_2": "llm_gemini",
-    "dndnode_0": "https://firebasestorage.googleapis.com/v0/b/buildify-ai.appspot.com/o/uploads%2Fwittyhacks.txt?alt=media&token=74185117-40ec-453e-9165-5177fafdac78",
-    "dndnode_3": "Hello This is Prompt",
-    "dndnode_1": "embedding_gemini"
-  }
+  // I need to take all values of localStorage and convert it into a JSON object. It will key value pairs.
+
+  const lstorate = { ...localStorage };
+  
 
 
   const getArguments = (node) => {
