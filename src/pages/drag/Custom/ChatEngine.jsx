@@ -6,12 +6,12 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const people = [
-  { id: 1, name: "Google Gemini Pro", online: true },
-  { id: 2, name: "Google Gemini Ultra", online: false },
-  { id: 3, name: "OpenAI GPT-3.5 Turbo", online: true                              },
-  { id: 4, name: 'OpenAI GPT-4 and GPT-4 Turbo', online: false },
-  { id: 5, name: 'Azure OpenAI Service', online: false },
-  { id: 6, name: 'OpenAI DALL·E', online: false },
+  { id: 1,type:"llm_gemini", name: "Google Gemini Pro", online: true },
+  { id: 2, type:"llm_gemini", name: "Google Gemini Ultra", online: false },
+  { id: 3,type:"llm_gemini",  name: "OpenAI GPT-3.5 Turbo", online: true                              },
+  { id: 4,type:"llm_gemini", name: 'OpenAI GPT-4 and GPT-4 Turbo', online: false },
+  { id: 5, type:"llm_gemini", name: 'Azure OpenAI Service', online: false },
+  { id: 6, type:"llm_gemini", name: 'OpenAI DALL·E', online: false },
   // { id: 7, name: 'Caroline Schultz', online: true },
   // { id: 8, name: 'Mason Heaney', online: false },
   // { id: 9, name: 'Claudie Smitham', online: true },
@@ -22,11 +22,18 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const EmbeddingsNode = memo(({ data, isConnectable }) => {
+const EmbeddingsNode = memo(({ id, data, isConnectable }) => {
   const [selected, setSelected] = useState(people[3])
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
     };
+
+    const handleOptionChange = (option) => {  
+      console.log(option)
+       setSelected(option);
+       // Store it in local storage
+       localStorage.setItem(`${id}`, `${option.type}`);
+   };
 
     return (
         <div className="bg-white shadow sm:rounded-lg">
@@ -54,7 +61,7 @@ const EmbeddingsNode = memo(({ data, isConnectable }) => {
             <div className="px-2 py-5 sm:p-6">
 
 
-              <Listbox value={selected} onChange={setSelected}>
+              <Listbox value={selected} onChange={handleOptionChange}>
                 {({ open }) => (
                   <>
                     <Listbox.Label className="block text-sm font-medium text-gray-700">Fine Tune LLM (Multi-Modal Available)</Listbox.Label>

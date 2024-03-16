@@ -142,6 +142,13 @@ export default ({HandleSubmission}) => {
         >
           <span className="ml-2">Gemini Embeddings</span>
         </div>
+        <div
+          className="border-2 hover:bg-slate-100 border-black text-black p-4 rounded-md cursor-move flex items-center justify-center"
+          onDragStart={(event) => onDragStart(event, 'chromeVectorStore')}
+          draggable
+        >
+          <span className="ml-2">Chroma</span>
+        </div>
 
           
         </div>

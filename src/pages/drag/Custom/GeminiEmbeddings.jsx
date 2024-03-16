@@ -8,10 +8,10 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 const people = [
-    { id: 1, name: "text-embedding-3-small", online: true },
-    { id: 2, name: "text-embedding-3-large", online: true },
-    { id: 3, name: "ada v2", online: true                              },
-    { id: 4, name: 'text-embedding-2', online: false },
+    { id: "embedding_gemini", name: "Google Gemini Embedding", online: true },
+    // { id: 2, name: "text-embedding-3-large", online: true },
+    // { id: 3, name: "ada v2", online: true                              },
+    // { id: 4, name: 'text-embedding-2', online: false },
     // { id: 5, name: 'Azure OpenAI Service', online: false },
     // { id: 6, name: 'OpenAI DALL·E', online: false },
     // { id: 7, name: 'Caroline Schultz', online: true },
@@ -21,16 +21,16 @@ const people = [
   ]
 
 const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {
-    // const [selected, setSelected] = useState(publishingOptions[0]);
-    const [selected, setSelected] = useState(people[3])
+    const [selected, setSelected] = useState(people[0])
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
     };
 
-    const handleOptionChange = (option) => {
-        // setSelected(option);
+    const handleOptionChange = (option) => {  
+       console.log(option)
+        setSelected(option);
         // Store it in local storage
-        localStorage.setItem(`${id}`, `${option.title}`);
+        localStorage.setItem(`${id}`, `${option.id}`);
     };
 
     return (
@@ -61,7 +61,7 @@ const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {
                 <label class="block text-gray-700 font-semibold mb-2" for="file-path">
                    Embeddings Model
                 </label>
-                <Listbox value={selected} onChange={setSelected}>
+                <Listbox value={selected} onChange={handleOptionChange}>
                 {({ open }) => (
                   <>
                     {/* <Listbox.Label className="block text-sm font-medium text-gray-700">Fine Tune LLM (Multi-Modal Available)</Listbox.Label> */}

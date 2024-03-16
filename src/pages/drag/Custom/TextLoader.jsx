@@ -34,6 +34,13 @@ const FileUpload = memo(({ id,data, isConnectable, onFileUpload }) => {
                 onConnect={(params) => console.log('handle onConnect', params)}
                 isConnectable={isConnectable}
             />
+            <Handle
+                type="source"
+                position={Position.Left}
+                style={{ background: '#555' }}
+                onConnect={(params) => console.log('handle onConnect', params)}
+                isConnectable={isConnectable}
+            />
             <div className="px-4 py-5 sm:p-6">
                 <h3 className="text-lg font-medium leading-6 text-gray-900">TextLoader</h3>
                 <div className="mt-5">

@@ -7,12 +7,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const InputPromptFun = memo(({ data, isConnectable }) => {
+const InputPromptFun = memo(({id, data, isConnectable }) => {
   const [inputContent, setInputContent] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Input Content:", inputContent);
+    localStorage.setItem(id, inputContent);
     // You can perform further actions here, like posting the content to a server.
   };
 

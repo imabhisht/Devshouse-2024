@@ -23,6 +23,7 @@ import JSONLoader from './Custom/JSONLoader';
 import OpenAIEmbeddings from "./Custom/OpenAIEmbeddings";
 import GeminiEmbeddings from "./Custom/GeminiEmbeddings";
 import HuggingFaceEmbeddings from "./Custom/HuggingFaceEmbeddings";
+import ChromeVectorStore from "./Custom/ChromaVectorStore";
 
 const initialNodes = [];
 
@@ -38,7 +39,8 @@ const customNodeTypes = {
   jsonLoader: JSONLoader,
   openaiEmbeddings: OpenAIEmbeddings,
   geminiEmbeddings: GeminiEmbeddings,
-  huggingfaceEmbeddings: HuggingFaceEmbeddings
+  huggingfaceEmbeddings: HuggingFaceEmbeddings,
+  chromeVectorStore: ChromeVectorStore
 };
 
 const DnDFlow = () => {
