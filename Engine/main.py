@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
-import io
-import sys
 import subprocess
 app = Flask(__name__)
 import os
@@ -10,10 +8,10 @@ import json
 
 from bson import ObjectId
 
-import Engine.codeGenerator as codeGenerator
+import codeGenerator as codeGenerator
 dotenv.load_dotenv()
 # Connect to MongoDB
-client = MongoClient("mongodb+srv://admin:admin@buildify-main.hwxwq82.mongodb.net")
+client = MongoClient(os.getenv('MONGO_URI'))
 db = client['buildify']
 app_code_collection = db['workflows']
 
