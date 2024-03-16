@@ -4,6 +4,8 @@ import Editor from "./pages/editor/App";
 import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
 import Mainpage from './pages/Mainscreen/Mainpage';
+import SecondMainpage from './pages/SecondScreen/SecondMainpage';
+
 import Drag from './pages/drag/Drag';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Dialog, Menu, Transition } from '@headlessui/react'
@@ -75,11 +77,11 @@ export default function Example() {
               href="#"
               className="flex h-16 w-16 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
             >
-              {/* <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
+              <img
+                className="h-auto w-auto"
+                src="https://cdn.dribbble.com/userupload/3592191/file/original-294d8290ba34d6bb54296bc5e8d49560.png"
                 alt="Your Company"
-              /> */}
+              />  
             </a>
           </div>
 
