@@ -9,15 +9,6 @@ function classNames(...classes) {
 }
 const people = [
     { id: "embedding_gemini", name: "Google Gemini Embedding", online: true },
-    // { id: 2, name: "text-embedding-3-large", online: true },
-    // { id: 3, name: "ada v2", online: true                              },
-    // { id: 4, name: 'text-embedding-2', online: false },
-    // { id: 5, name: 'Azure OpenAI Service', online: false },
-    // { id: 6, name: 'OpenAI DALL·E', online: false },
-    // { id: 7, name: 'Caroline Schultz', online: true },
-    // { id: 8, name: 'Mason Heaney', online: false },
-    // { id: 9, name: 'Claudie Smitham', online: true },
-    // { id: 10, name: 'Emil Schaefer', online: false },
   ]
 
 const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {

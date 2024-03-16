@@ -150,14 +150,43 @@ const conversion = (x) => {
     }
 }
 
+const lstorate  = {
+  "dndnode_2": "llm_gemini",
+  "dndnode_0": "https://firebasestorage.googleapis.com/v0/b/buildify-ai.appspot.com/o/uploads%2Fwittyhacks.txt?alt=media&token=74185117-40ec-453e-9165-5177fafdac78",
+  "dndnode_3": "Hello This is Prompt",
+  "dndnode_1": "embedding_gemini"
+}
+
+
 const getArguments = (node) => {
     switch (conversion(node.type)) {
         case "loader_text":
-            
-            break;
+            return {
+                "path": lstorate[node.id]
+            }
+
+        case "loader_csv":
+            return {
+                "path": lstorate[node.id]
+            }
+        
+        case "loader_json":
+          return {
+            "path": lstorate[node.id],
+          }
+
+        case "vectorStore_chormaDB":
+          return {
+            "collectionName": lstorate[node.id]
+          }
+
+        case "system_prompt":
+          return {
+            "prompt": lstorate[node.id]
+          }
     
         default:
-            break;
+            return {}
     }
 }
  
@@ -168,18 +197,13 @@ const nodesWithRelations = nodes.map((node) =>{
         nodeName: conversion(node.type),
         childId: immediateChild,
         parentId: immediateParent,
-        arguments: getArguments
+        arguments: getArguments(node)
     }
   });
 
 nodesWithRelations.forEach(x => console.log(x))
   
-const lstorate  = {
-    "dndnode_2": "llm_gemini",
-    "dndnode_0": "https://firebasestorage.googleapis.com/v0/b/buildify-ai.appspot.com/o/uploads%2Fwittyhacks.txt?alt=media&token=74185117-40ec-453e-9165-5177fafdac78",
-    "dndnode_3": "Hello This is Prompt",
-    "dndnode_1": "embedding_gemini"
-}
+
 
 
  
