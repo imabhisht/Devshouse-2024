@@ -1,89 +1,9 @@
-// import React, { useState, useEffect } from 'react';
-// import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// import SignInForm from './components/SignInForm';
-// import Editor from "./pages/editor/App";
-// import Dashboard from './pages/dashboard/Dashboard';
-// import './App.css';
-// import Drag from './pages/drag/Drag';
-
-// function App() {
-//   const [isLoggedIn, setIsLoggedIn] = useState(true); // Initial login state
-
-//   useEffect(() => {
-//     const storedLoggedIn = localStorage.getItem('isLoggedIn');
-//     setIsLoggedIn(storedLoggedIn === 'true');
-//   }, []);
-
-//   const handleLogin = (username, password) => {
-//     if (username === 'admin' && password === 'password') { // Example credentials
-//       setIsLoggedIn(true);
-//       localStorage.setItem('isLoggedIn', 'true'); // Store login state
-//     } else {
-//       console.error('Invalid login credentials');
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     setIsLoggedIn(false);
-//     localStorage.removeItem('isLoggedIn'); // Clear stored data
-//   };
-
-//   return (
-//     <Router>
-//       <Routes>
-//         {/* Protected Routes */}
-//         {/* <Route
-//           path="/dashboard"
-//           element={
-//             isLoggedIn ? (
-//               () => <h1>Dashboard</h1>
-//             ) : (
-//               <Navigate to="/login" replace />
-//             )
-//           }
-//         /> */}
-
-//         {/* Editor Route */}
-//         <Route
-//           path="/editor"
-//           element={<Editor />
-//           }
-//         />
-        
-//         <Route
-//           path="/dashboard"
-//           element={<Dashboard />}
-//         />
-
-//         <Route 
-//           path='/custom'
-//           element={<Drag />}
-//         />
-
-//         {/* Public Route */}
-//         <Route
-//           path="/login"
-//           element={
-//             !isLoggedIn ? (
-//               <SignInForm onLogin={handleLogin} />
-//             ) : (
-//               <Navigate to="/dashboard" replace />
-//             )
-//           }
-//         />
-
-//         <Route path="*" element={<Navigate to="/login" replace />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
 import React, { Fragment, useState, useEffect } from 'react';
 import SignInForm from './components/SignInForm';
 import Editor from "./pages/editor/App";
 import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
+import Mainpage from './pages/Mainscreen/Mainpage';
 import Drag from './pages/drag/Drag';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Dialog, Menu, Transition } from '@headlessui/react'
@@ -99,13 +19,16 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-
+import SecondMainScreen from "./pages/SecondScreen/SecondMainpage"
 const user = {
   name: 'Whitney Francis',
   email: 'whitney.francis@example.com',
   imageUrl:
     'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
+
+
+
 const navigation = [
   {
     name: 'Inboxes',
@@ -120,8 +43,8 @@ const navigation = [
   { name: 'Settings', href: '#', children: [] },
 ]
 const sidebarNavigation = [
-  { name: 'Open', href: '#', icon: InboxIcon, current: true },
-  { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
+  { name: 'Open', href: '', icon: InboxIcon, current: true },
+  { name: 'Archive', href: '/SecondMainScreen', icon: ArchiveBoxIcon, current: false },
   { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
   { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
   { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
@@ -152,11 +75,11 @@ export default function Example() {
               href="#"
               className="flex h-16 w-16 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
             >
-              <img
+              {/* <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=white"
                 alt="Your Company"
-              />
+              /> */}
             </a>
           </div>
 
@@ -283,7 +206,7 @@ export default function Example() {
             </div>
           </div>
 
-          {/* Mobile menu, show/hide this `div` based on menu open/closed state */}
+          {/* Mobile menu, show/hide this div based on menu open/closed state */}
           <Transition.Root show={mobileMenuOpen} as={Fragment}>
             <Dialog as="div" className="relative z-40 md:hidden" onClose={setMobileMenuOpen}>
               <Transition.Child
@@ -427,9 +350,13 @@ export default function Example() {
               <div className="p-4 sm:p-6 lg:p-8">
               <BrowserRouter>
                 <Routes>
-                  <Route path="/" element={<DraggerInit />} />  {/* Matches the root path (/) */}
+                  <Route path="/" element={<Mainpage />} />  {/* Matches the root path (/) */}
                   <Route path="/about" element={<h1>About</h1>} />  {/* Matches the /about path */}
                   <Route path="/dragger" element={<Drag />} />
+                  <Route path="/editor" element={<Editor />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/Mainscreen" element={<Mainpage />} />
+                  <Route path="/SecondMainScreen" element={<SecondMainScreen />} />
                 </Routes>
               </BrowserRouter>
               </div>

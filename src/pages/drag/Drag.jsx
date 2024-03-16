@@ -8,8 +8,9 @@ import ReactFlow, {
   Background
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-
+import { updateProjectWorkflow } from "../../api/index";
 import Sidebar from './Sidebar';
+import PraseJSON from './Algorithm/main';
 
 import './index.css';
 import FileUpload from './Custom/FileUpload';
@@ -24,6 +25,8 @@ import OpenAIEmbeddings from "./Custom/OpenAIEmbeddings";
 import GeminiEmbeddings from "./Custom/GeminiEmbeddings";
 import HuggingFaceEmbeddings from "./Custom/HuggingFaceEmbeddings";
 import ChromeVectorStore from "./Custom/ChromaVectorStore";
+import AWSComponent from "./Custom/AWSComponent"
+
 
 const initialNodes = [];
 
@@ -40,7 +43,8 @@ const customNodeTypes = {
   openaiEmbeddings: OpenAIEmbeddings,
   geminiEmbeddings: GeminiEmbeddings,
   huggingfaceEmbeddings: HuggingFaceEmbeddings,
-  chromeVectorStore: ChromeVectorStore
+  chromeVectorStore: ChromeVectorStore,
+  aws_component: AWSComponent
 };
 
 const DnDFlow = () => {
@@ -89,11 +93,19 @@ const DnDFlow = () => {
     [reactFlowInstance],
   );
 
-  const handleWorkFlowSubmission = (event) => {
+  const handleWorkFlowSubmission = async(event) => {
     // event.preventDefault();
     console.log("Workflow Submitted");
     console.log(nodes);
     console.log(edges);
+    const dataxx2 = PraseJSON(nodes, edges);
+
+    const datax = await updateProjectWorkflow({nodes,edges, dataxx2})
+
+    console.log(datax);
+
+    alert("Code is Updated");
+
   }
 
   return (
@@ -110,7 +122,9 @@ const DnDFlow = () => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             fitView
+            elevateEdgesOnSelect={true}
             nodeTypes={customNodeTypes}
+            // edgeTypes=
           >
             <Controls />
             <Background color="#aa3" gap={16} />
