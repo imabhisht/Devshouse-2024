@@ -23,9 +23,6 @@ const FileUpload = memo(({ id,data, isConnectable, onFileUpload }) => {
     };
 
     return (
-
-            
-
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-black px-6 py-10">
                <Handle
                 type="target"

@@ -6,16 +6,16 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const people = [
-  { id: 1, name: 'Wade Cooper', online: true },
-  { id: 2, name: 'Arlene Mccoy', online: false },
-  { id: 3, name: 'Devon Webb', online: false },
-  { id: 4, name: 'Tom Cook', online: true },
-  { id: 5, name: 'Tanya Fox', online: false },
-  { id: 6, name: 'Hellen Schmidt', online: true },
-  { id: 7, name: 'Caroline Schultz', online: true },
-  { id: 8, name: 'Mason Heaney', online: false },
-  { id: 9, name: 'Claudie Smitham', online: true },
-  { id: 10, name: 'Emil Schaefer', online: false },
+  { id: 1, name: "Google Gemini Pro", online: true },
+  { id: 2, name: "Google Gemini Ultra", online: false },
+  { id: 3, name: "OpenAI GPT-3.5 Turbo", online: true                              },
+  { id: 4, name: 'OpenAI GPT-4 and GPT-4 Turbo', online: false },
+  { id: 5, name: 'Azure OpenAI Service', online: false },
+  { id: 6, name: 'OpenAI DALL·E', online: false },
+  // { id: 7, name: 'Caroline Schultz', online: true },
+  // { id: 8, name: 'Mason Heaney', online: false },
+  // { id: 9, name: 'Claudie Smitham', online: true },
+  // { id: 10, name: 'Emil Schaefer', online: false },
 ]
 
 function classNames(...classes) {
@@ -44,13 +44,20 @@ const EmbeddingsNode = memo(({ data, isConnectable }) => {
                 onConnect={(params) => console.log("handle onConnect", params)}
                 isConnectable={isConnectable}
             />
+            <Handle
+                type="target"
+                position={Position.Right}
+                id="a"
+                style={{ background: "#555" }}
+                isConnectable={isConnectable}
+            />
             <div className="px-2 py-5 sm:p-6">
 
 
 <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
-          <Listbox.Label className="block text-sm font-medium text-gray-700">Assigned to</Listbox.Label>
+          <Listbox.Label className="block text-sm font-medium text-gray-700">Fine Tune LLM (Multi-Modal Available)</Listbox.Label>
           <div className="relative mt-1">
             <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
               <span className="flex items-center">
@@ -127,7 +134,7 @@ const EmbeddingsNode = memo(({ data, isConnectable }) => {
     </Listbox>
             <Handle
                 type="source"
-                position={Position.Right}
+                position={Position.Bottom}
                 id="a"
                 style={{ background: "#555" }}
                 isConnectable={isConnectable}

@@ -16,8 +16,10 @@ import FileUpload from './Custom/FileUpload';
 import EmbeddingsNode from './Custom/Embeddings';
 import InputPrompt from './Custom/InputPrompt';
 import ChatEngine from './Custom/ChatEngine'
+import TextLoader from "./Custom/TextLoader";
 import { storage } from '../../firebase'; // Import Firebase storage
-
+import CSVLoader from './Custom/CSVLoader';
+import JSONLoader from './Custom/JSONLoader';
 
 const initialNodes = [];
 
@@ -27,7 +29,10 @@ const customNodeTypes = {
   fileUpload: FileUpload,
   embeddings: EmbeddingsNode,
   inputPrompt: InputPrompt,
-  chatEngine: ChatEngine
+  chatEngine: ChatEngine,
+  textLoader: TextLoader,
+  csvLoader: CSVLoader,
+  jsonLoader: JSONLoader
 };
 
 const DnDFlow = () => {
@@ -76,6 +81,13 @@ const DnDFlow = () => {
     [reactFlowInstance],
   );
 
+  const handleWorkFlowSubmission = (event) => {
+    // event.preventDefault();
+    console.log("Workflow Submitted");
+    console.log(nodes);
+    console.log(edges);
+  }
+
   return (
     <div className="dndflow">
       <ReactFlowProvider>
@@ -97,7 +109,7 @@ const DnDFlow = () => {
 
           </ReactFlow>
         </div>
-        <Sidebar />
+        <Sidebar HandleSubmission={handleWorkFlowSubmission} />
       </ReactFlowProvider>
     </div>
   );

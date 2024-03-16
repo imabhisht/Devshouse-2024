@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Handle, Position } from "reactflow";
 import { Tab } from '@headlessui/react';
 import { LinkIcon } from '@heroicons/react/20/solid';
@@ -8,6 +8,14 @@ function classNames(...classes) {
 }
 
 const InputPromptFun = memo(({ data, isConnectable }) => {
+  const [inputContent, setInputContent] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Input Content:", inputContent);
+    // You can perform further actions here, like posting the content to a server.
+  };
+
   return (
     <div className="bg-white shadow sm:rounded-lg">
       <Handle
@@ -18,7 +26,7 @@ const InputPromptFun = memo(({ data, isConnectable }) => {
         isConnectable={isConnectable}
       />
       <div className="px-2 py-5 sm:p-6">
-        <form action="#">
+        <form onSubmit={handleSubmit}>
           <Tab.Group>
             {({ selectedIndex }) => (
               <>
@@ -75,7 +83,8 @@ const InputPromptFun = memo(({ data, isConnectable }) => {
                         id="comment"
                         className="block  md:w-[300px] w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Enter your Prompt..."
-                        defaultValue={''}
+                        value={inputContent}
+                        onChange={(e) => setInputContent(e.target.value)}
                       />
                     </div>
                   </Tab.Panel>
@@ -95,18 +104,18 @@ const InputPromptFun = memo(({ data, isConnectable }) => {
               type="submit"
               className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Post
+              Save
             </button>
           </div>
         </form>
       </div>
       <Handle
-                type="source"
-                position={Position.Right}
-                id="a"
-                style={{ background: "#555" }}
-                isConnectable={isConnectable}
-            />
+        type="source"
+        position={Position.Right}
+        id="a"
+        style={{ background: "#555" }}
+        isConnectable={isConnectable}
+      />
     </div>
   )
 });
