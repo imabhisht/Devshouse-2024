@@ -4,28 +4,23 @@ from llama_index.core.readers import SimpleDirectoryReader
 from llama_index.core import VectorStoreIndex
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
-
-
-from llama_index.core import VectorStoreIndex, get_response_synthesizer
+from llama_index.readers.web import SimpleWebPageReader
+from llama_index.core import VectorStoreIndex, ServiceContext, get_response_synthesizer
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor
-
-import google.generativeai as genai
-
-
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.storage.storage_context import StorageContext
-
-import chromadb
-
+from dotenv import load_dotenv
 from llama_index.core import ServiceContext
+import google.generativeai as genai
+from googlesearch import search
+import chromadb
 import dotenv
-import os
 import random
+import os
+
 dotenv.load_dotenv()
-
-
 
 # Loaders
 def loader_csv(path):
@@ -44,7 +39,7 @@ def loader_csv(path):
         f.write(r.content)
     return "temp/"+str(file_name)
 
- 
+
 
 def loader_text(path):
     import requests
@@ -101,6 +96,20 @@ def embedding_gemini(path):
     import shutil
     shutil.rmtree("temp", ignore_errors=True)
 
+    return index
+
+def fetch_top_websites(query, num_results=3):
+    search_results = search(query, num_results=num_results)
+    urls = []
+    for url in search_results:
+        urls.append(str(url))
+    
+    reader = SimpleWebPageReader(html_to_text=True)
+    documents = reader.load_data(urls)
+    
+    embdding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_AI"))
+    service_context = ServiceContext.from_defaults(llm=None, embed_model=embdding_instance)
+    index = VectorStoreIndex.from_documents(documents=documents, service_context=service_context)
     
     return index
 
@@ -119,7 +128,6 @@ def vectorStore_chormaDB(collectionName,   index):
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
     index.store(storage_context=storage_context)
     return index
-
 
 
 # System Prompt  
@@ -157,10 +165,3 @@ def llm_openai(query, index=None):
 
 def llm_llama2(query, index=None):
     return "Currently not Available"
-
-
-
-
-
-
-
