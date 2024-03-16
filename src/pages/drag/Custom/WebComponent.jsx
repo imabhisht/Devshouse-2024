@@ -10,7 +10,7 @@ function classNames(...classes) {
 const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {
 
     const [connect, setConnect ] = useState(false);
-
+    const [changeText, setChangeText] = useState("");
     const onConnectClicked = () => {
         try {
             setConnect(!connect);
@@ -24,9 +24,9 @@ const EmbeddingsNode = memo(({ id, data, onNodeUpdate, isConnectable }) => {
     };
 
     const handleOptionChange = (option) => {
-        // setSelected(option);
         // Store it in local storage
-        localStorage.setItem(`${id}`, `${option.title}`);
+        setChangeText(option.target.value);
+        localStorage.setItem(`${id}`, `${changeText}`);
     };
 
     return (
