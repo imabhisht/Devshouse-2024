@@ -149,6 +149,12 @@ export default async function PraseJSON(nodes,edges){
               return "system_prompt"
           case "chatEngine":
               return "llm_gemini"
+          case "youTubeComponent":
+              return "scrapper_youtube"
+          case "githubComponent":
+              return "scrapper_github"
+          case "websiteComponent":
+              return "scrapper_website"
           default:
               break;
       }
@@ -186,7 +192,21 @@ export default async function PraseJSON(nodes,edges){
             return {
               "prompt": lstorate[node.id]
             }
-      
+
+          case "scrapper_youtube":
+            return {
+              "link": lstorate[node.id]
+            }
+
+          case "scrapper_github":
+            return {
+              "link": lstorate[node.id]
+            }
+
+          case "scrapper_website":
+            return {
+              "link": lstorate[node.id]
+            }
           default:
               return {}
       }
