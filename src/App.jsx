@@ -84,6 +84,7 @@ import SignInForm from './components/SignInForm';
 import Editor from "./pages/editor/App";
 import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
+import Mainpage from './pages/Mainscreen/Mainpage';
 import Drag from './pages/drag/Drag';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Dialog, Menu, Transition } from '@headlessui/react'
@@ -430,6 +431,9 @@ export default function Example() {
                   <Route path="/" element={<DraggerInit />} />  {/* Matches the root path (/) */}
                   <Route path="/about" element={<h1>About</h1>} />  {/* Matches the /about path */}
                   <Route path="/dragger" element={<Drag />} />
+                  <Route path="/editor" element={<Editor />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/Mainscreen" element={<Mainpage />} />
                 </Routes>
               </BrowserRouter>
               </div>
