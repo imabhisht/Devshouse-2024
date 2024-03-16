@@ -22,19 +22,60 @@ import chromadb
 from llama_index.core import ServiceContext
 import dotenv
 import os
+import random
 dotenv.load_dotenv()
 
 
 
 # Loaders
 def loader_csv(path):
-    return path
+    import requests
+    url = path
+    # download the text from the url and store it in the unique folder and return the folder name
+    r = requests.get(url)
+    # make the unique name
+    file_name = random.randint(1000, 9999)
+    if not os.path.exists("temp"):
+        os.makedirs("temp")
+    while os.path.exists("temp/"+str(file_name)):
+        file_name = random.randint(1000, 9999)
+    os.makedirs("temp/"+str(file_name))
+    with open('temp/'+str(file_name)+'/data.csv', 'wb') as f:
+        f.write(r.content)
+    return "temp/"+str(file_name)
+
+ 
 
 def loader_text(path):
-    return path
+    import requests
+    url = path
+    # download the text from the url and store it in the unique folder and return the folder name
+    r = requests.get(url)
+    file_name = random.randint(1000, 9999)
+    if not os.path.exists("temp"):
+        os.makedirs("temp")
+    while os.path.exists("temp/"+str(file_name)):
+        file_name = random.randint(1000, 9999)
+    os.makedirs("temp/"+str(file_name))
+    with open('temp/'+str(file_name)+'/data.txt', 'wb') as f:
+        f.write(r.content)
+    return "temp/"+str(file_name)
+
 
 def loader_json(path):
-    return path
+    import requests
+    url = path
+    # download the text from the url and store it in the unique folder and return the folder name
+    r = requests.get(url)
+    file_name = random.randint(1000, 9999)
+    if not os.path.exists("temp"):
+        os.makedirs("temp")
+    while os.path.exists("temp/"+str(file_name)):
+        file_name = random.randint(1000, 9999)
+    os.makedirs("temp/"+str(file_name))
+    with open('temp/'+str(file_name)+'/data.json', 'wb') as f:
+        f.write(r.content)
+    return "temp/"+str(file_name)
 
 def embedding_openai(path):
     return "Currently not Available"
@@ -42,11 +83,25 @@ def embedding_openai(path):
 
 # Embeddings
 def embedding_gemini(path):
+    # move all the folder to one forlder
+    for folder in path:
+        for file in os.listdir(folder):
+            # move the file to the temp folder and delete the folder name the file as foldernam+filename
+            os.rename(folder+"/"+file, "temp/"+folder.split("/")[-1]+file)
+
+        os.rmdir(folder)
+
+    
     embdding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_API_KEY"))
-    reader = SimpleDirectoryReader(input_dir="/home/dev/Code/Hackathon/Devhouse/"+path, recursive=True)
+    reader = SimpleDirectoryReader(input_dir=os.getcwd()+"/"+"temp", recursive=True)
     document = reader.load_data()
     service_context = ServiceContext.from_defaults(llm= None, embed_model=embdding_instance)
     index = VectorStoreIndex.from_documents(documents=document, service_context=service_context)
+    # remove the temp folder recursively
+    import shutil
+    shutil.rmtree("temp", ignore_errors=True)
+
+    
     return index
 
 def embedding_bert(path):
@@ -57,7 +112,7 @@ def embedding_huggingface(path):
 
 
 # Vector Store
-def vectorStore_chormaDB(index, collectionName):
+def vectorStore_chormaDB(collectionName,   index):
     db = chromadb.PersistentClient(path="./ChromaDatabase")
     collection = db.get_or_create_collection(collectionName)
     vector_store = ChromaVectorStore(collection)
@@ -67,32 +122,33 @@ def vectorStore_chormaDB(index, collectionName):
 
 
 
-
+# System Prompt  
+def system_prompt(prompt):
+    return prompt
 
 
 # LLM
-def llm_gemini(query, index=None):
+def llm_gemini(query_input, system_prompt=None, query = None, index=None):
     if index:
         llm = Gemini(api_key= os.getenv("GOOGLE_GEMINI_API_KEY"))
         embedding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_API_KEY"))
-        service_context = ServiceContext.from_defaults(llm=llm, embed_model=embedding_instance)
-        retriever = VectorIndexRetriever(
-            index=index,
-            similarity_top_k=10,
-        )
-        response_synthesizer = get_response_synthesizer(service_context=service_context)
-        query_engine = RetrieverQueryEngine(
-            retriever=retriever,
-            response_synthesizer=response_synthesizer,
-            node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.7)],
-        )
-        response = query_engine.query(query)
+        service_context = ServiceContext.from_defaults(llm=llm, embed_model=embedding_instance, system_prompt=system_prompt)
+        print(query_input)
+        query_engine = index.as_query_engine(service_context=service_context)
+        if query:
+            response = query_engine.query(query_input+query)
+        else:
+            response = query_engine.query(query_input)
         return response
+    
     else:
         genai.configure(api_key=os.getenv("GOOGLE_GEMINI_API_KEY"))
-        model = genai.load_model("gemini-pro")
-        response = model.query(query)
-        return response
+        model = genai.GenerativeModel('gemini-pro')
+        if query:
+            response = model.query(query_input+query)
+        else:
+            response = model.query(query_input)
+        return response.response
     
 def llm_openai(query, index=None):
     return "Currently not Available"
@@ -101,5 +157,10 @@ def llm_openai(query, index=None):
 
 def llm_llama2(query, index=None):
     return "Currently not Available"
+
+
+
+
+
 
 
