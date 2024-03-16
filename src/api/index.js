@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://temp-devhouse-3mvs5oa71-devsapariya94.vercel.app';
 // const user = "f79b7455-abe5-4ad7-b2dc-fe04143d683c"
 
 export const postProject = async (event) => {

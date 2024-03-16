@@ -26,7 +26,9 @@ import GeminiEmbeddings from "./Custom/GeminiEmbeddings";
 import HuggingFaceEmbeddings from "./Custom/HuggingFaceEmbeddings";
 import ChromeVectorStore from "./Custom/ChromaVectorStore";
 import AWSComponent from "./Custom/AWSComponent"
-
+import YouTubeComponent from "./Custom/YouTubeComponent";
+import GitHubComponent from "./Custom/GithubComponent"
+import WebsiteComponenet from  "./Custom/WebComponent";
 
 const initialNodes = [];
 
@@ -44,7 +46,10 @@ const customNodeTypes = {
   geminiEmbeddings: GeminiEmbeddings,
   huggingfaceEmbeddings: HuggingFaceEmbeddings,
   chromeVectorStore: ChromeVectorStore,
-  aws_component: AWSComponent
+  aws_component: AWSComponent,
+  youTubeComponent: YouTubeComponent,
+  gitubComponent:GitHubComponent,
+  websiteComponenet:WebsiteComponenet
 };
 
 const DnDFlow = () => {

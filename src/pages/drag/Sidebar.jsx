@@ -102,8 +102,13 @@ const Sidebar = ({HandleSubmission}) => {
       title: 'Tool',
       items: [
         { text: 'Chrome Vector Store', nodeType: 'chromeVectorStore', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
+        { text: 'YouTube', nodeType: 'youTubeComponent', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
+        { text: 'GitHub', nodeType: 'gitubComponent', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
+        { text: 'Website', nodeType: 'websiteComponenet', iconPath: 'M12 6v6m0 0v6m0-6h6m-6 0H6' },
+
       ]
     },
+
   ];
 
   const handleSaveButton = async() => {
