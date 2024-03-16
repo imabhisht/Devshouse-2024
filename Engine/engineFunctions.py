@@ -4,8 +4,7 @@ from llama_index.core.readers import SimpleDirectoryReader
 from llama_index.core import VectorStoreIndex
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
-
-
+from llama_index.readers.web import SimpleWebPageReader
 from llama_index.core import VectorStoreIndex, get_response_synthesizer
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
@@ -13,7 +12,7 @@ from llama_index.core.postprocessor import SimilarityPostprocessor
 
 import google.generativeai as genai
 
-
+from googlesearch import search
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.storage.storage_context import StorageContext
 
@@ -192,4 +191,18 @@ def scrapper_youtube(url):
     return index
 
 
+def scraper_websites(query, num_results=3):
+    search_results = search(query, num_results=num_results)
+    urls = []
+    for url in search_results:
+        urls.append(str(url))
+    
+    reader = SimpleWebPageReader(html_to_text=True)
+    documents = reader.load_data(urls)
+    
+    embdding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_AI"))
+    service_context = ServiceContext.from_defaults(llm=None, embed_model=embdding_instance)
+    index = VectorStoreIndex.from_documents(documents=documents, service_context=service_context)
+    
+    return index
 
