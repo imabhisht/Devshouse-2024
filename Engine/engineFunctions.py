@@ -162,8 +162,8 @@ def llm_llama2(query, index=None):
 
 
 
-# Scrapers
-def scraper_youtube(url):
+# Scrappers
+def scrapper_youtube(url):
     from youtube_transcript_api import YouTubeTranscriptApi
     from pytube import YouTube
 
