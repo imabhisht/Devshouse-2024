@@ -25,6 +25,9 @@ import os
 import random
 dotenv.load_dotenv()
 
+# disable all the warnings
+import warnings
+warnings.filterwarnings("ignore")
 
 
 # Loaders
@@ -133,7 +136,6 @@ def llm_gemini(query_input, system_prompt=None, query = None, index=None):
         llm = Gemini(api_key= os.getenv("GOOGLE_GEMINI_API_KEY"))
         embedding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_API_KEY"))
         service_context = ServiceContext.from_defaults(llm=llm, embed_model=embedding_instance, system_prompt=system_prompt)
-        print(query_input)
         query_engine = index.as_query_engine(service_context=service_context)
         if query:
             response = query_engine.query(query_input+query)
@@ -160,7 +162,34 @@ def llm_llama2(query, index=None):
 
 
 
+# Scrapers
+def scraper_youtube(url):
+    from youtube_transcript_api import YouTubeTranscriptApi
+    from pytube import YouTube
 
+    yt = YouTube(url)
+    video_id = yt.video_id
+    data = YouTubeTranscriptApi.get_transcript(video_id)
+
+    text = ""
+
+    for i in data:
+        text += i['text'] + " "
+
+    with open("temp/youtube.txt", "w") as f:
+        f.write(text)
+
+    # create the index
+    embdding_instance = GeminiEmbedding(api_key=os.getenv("GOOGLE_GEMINI_API_KEY"))
+    reader = SimpleDirectoryReader(input_dir=os.getcwd()+"/"+"temp", recursive=True)
+    document = reader.load_data()
+    service_context = ServiceContext.from_defaults(llm= None, embed_model=embdding_instance)
+    index = VectorStoreIndex.from_documents(documents=document, service_context=service_context)
+    # remove the temp folder recursively
+    import shutil
+    shutil.rmtree("temp", ignore_errors=True)
+
+    return index
 
 
 

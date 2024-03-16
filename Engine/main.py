@@ -1,14 +1,21 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from pymongo import MongoClient
 import io
 import sys
 import subprocess
 app = Flask(__name__)
 import os
+import dotenv
+import json
+
+from bson import ObjectId
+
+import Engine.codeGenerator as codeGenerator
+dotenv.load_dotenv()
 # Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017')
-db = client['app_database']
-app_code_collection = db['app_code']
+client = MongoClient("mongodb+srv://admin:admin@buildify-main.hwxwq82.mongodb.net")
+db = client['buildify']
+app_code_collection = db['workflows']
 
 
 @app.route('/')
@@ -17,13 +24,28 @@ def hello_world():
 
 @app.route('/execute/<unique_code>')
 def execute_code(unique_code):
+    user_api_input = request.args.get('input')
+    print(unique_code)
+    # mongo_id = ObjectId(unique_code)
+    
     # Retrieve the Python code associated with the unique identifier from MongoDB
-    code_doc = app_code_collection.find_one({'unique_code': unique_code})
+    code_doc = app_code_collection.find_one({'_id': unique_code})
+
     if code_doc:
-        python_code = code_doc['code']
+        # python_code = "print('Hello, World!')"
+        # with open("test.json", "r") as f:
+        #     json_data = json.load(f)
+        json_data = {
+         "flowChart": code_doc["dataxx2"]
+        }
+        print(json_data)
+        # Parse the JSON and generate the code
+        python_code = f"import engineFunctions\nuser_api_input={user_api_input}\n"
+        python_code += codeGenerator.parse_json(json_data)
+        print(python_code)
         try:
             # Path to your virtual environment's Python interpreter
-            virtualenv_python = "/home/dev/Code/Hackathon/Devhouse/venv/bin/python"
+            virtualenv_python = os.getcwd()+"/venv/bin/python"
 
             # Current working directory
             cwd = os.getcwd()
