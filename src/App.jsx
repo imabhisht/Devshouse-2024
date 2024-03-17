@@ -6,6 +6,9 @@ import './App.css';
 import Mainpage from './pages/Mainscreen/Mainpage';
 import SecondMainpage from './pages/SecondScreen/SecondMainpage';
 import MyTemplates from './pages/MyTemplates/MyTemplates';
+import Template1 from './pages/MyTemplates/Template1';
+import Template2 from './pages/MyTemplates/Template2';
+import Template3 from './pages/MyTemplates/Template3';
 
 import Drag from './pages/drag/Drag';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -361,6 +364,10 @@ export default function Example() {
                   <Route path="/Mainscreen" element={<Mainpage />} />
                   <Route path="/SecondMainScreen" element={<SecondMainScreen />} />
                   <Route path="/MyTemplates" element={<MyTemplates />} />
+                  <Route path="/Template1" element={<Template1 />} />
+                  <Route path="/Template2" element={<Template2 />} />
+                  <Route path="/Template3" element={<Template3 />} />
+                  
                 </Routes>
               </BrowserRouter>
               </div>
