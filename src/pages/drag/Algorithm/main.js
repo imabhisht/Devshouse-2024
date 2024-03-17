@@ -224,7 +224,7 @@ export default async function PraseJSON(nodes,edges){
     });
 
     console.log("Yaha printho:", nodesWithRelations)
-    return nodesWithRelations
+    return nodesWithRelations;
 
   // nodesWithRelations.forEach(x => console.log(x));
     

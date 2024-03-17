@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://temp-devhouse-3mvs5oa71-devsapariya94.vercel.app';
+axios.defaults.baseURL = 'http://127.0.0.1:5000';
 // const user = "f79b7455-abe5-4ad7-b2dc-fe04143d683c"
 
 export const postProject = async (event) => {
@@ -25,8 +25,12 @@ export const fetchProjects = async(event) => {
 
 export const updateProjectWorkflow = async(event) => {
     try {
-        const response = await axios.post("/workflows/cbd9843b-223e-4ec1-bd23-e34ae59e5ebd", event);
-        console.log(response);
+        const response = await axios.post("/workflows", event);
+        console.log("This is response", response.data.workflow._id);
+        localStorage.setItem("URL_PART",response.data.workflow._id)
+
+
+        alert(`Your Short URL IS: /execute/${response.data.workflow._id}`)
         return response
     } catch (error) {
         alert(error)

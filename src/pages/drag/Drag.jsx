@@ -106,6 +106,8 @@ const DnDFlow = () => {
     console.log(edges);
     const dataxx2 = await PraseJSON(nodes, edges);
 
+    console.log("Final",{nodes,edges, dataxx2} )
+
     const datax = await updateProjectWorkflow({nodes,edges, dataxx2})
 
     console.log(datax);

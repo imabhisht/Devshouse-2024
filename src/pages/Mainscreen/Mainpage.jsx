@@ -1,8 +1,17 @@
 import { AiFillFileAdd } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-
+import { v4 as uuidv4 } from 'uuid';
 export default function Example() {
   const navigation = useNavigate();
+
+
+  const handleClick = () => {
+    // set the session value in the local storage 
+    const id = uuidv4();
+    localStorage.clear()
+    localStorage.setItem('workflow', id);
+    navigation('/dragger');
+  }
   
   return (
     <div>
@@ -27,7 +36,7 @@ export default function Example() {
             Upload Collection
            </button>
            <button
-             onClick={() => navigation('/dragger')}
+             onClick={handleClick}
              type="button"
              className="ml-2 inline-flex items-center rounded-md border border-gray-300 bg-white hover:bg-gray-600 hover:text-white px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 text-gray-700 shadow-sm hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-2"
            >

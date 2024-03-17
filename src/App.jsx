@@ -45,7 +45,7 @@ const navigation = [
   { name: 'Settings', href: '#', children: [] },
 ]
 const sidebarNavigation = [
-  { name: 'Open', href: '', icon: InboxIcon, current: true },
+  { name: 'Open', href: '/', icon: InboxIcon, current: true },
   { name: 'Archive', href: '/SecondMainScreen', icon: ArchiveBoxIcon, current: false },
   { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
   { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
