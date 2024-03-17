@@ -5,6 +5,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
 import Mainpage from './pages/Mainscreen/Mainpage';
 import SecondMainpage from './pages/SecondScreen/SecondMainpage';
+import MyTemplates from './pages/MyTemplates/MyTemplates';
 
 import Drag from './pages/drag/Drag';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -359,6 +360,7 @@ export default function Example() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/Mainscreen" element={<Mainpage />} />
                   <Route path="/SecondMainScreen" element={<SecondMainScreen />} />
+                  <Route path="/MyTemplates" element={<MyTemplates />} />
                 </Routes>
               </BrowserRouter>
               </div>
