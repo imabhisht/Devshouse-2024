@@ -163,11 +163,11 @@ def llm_llama2(query, index=None):
 
 
 # Scrappers
-def scrapper_youtube(url):
+def scrapper_youtube(link):
     from youtube_transcript_api import YouTubeTranscriptApi
     from pytube import YouTube
 
-    yt = YouTube(url)
+    yt = YouTube(link)
     video_id = yt.video_id
     data = YouTubeTranscriptApi.get_transcript(video_id)
 
@@ -176,6 +176,11 @@ def scrapper_youtube(url):
     for i in data:
         text += i['text'] + " "
 
+    # make the temp folder
+    if not os.path.exists("temp"):
+        os.makedirs("temp")
+
+        
     with open("temp/youtube.txt", "w") as f:
         f.write(text)
 

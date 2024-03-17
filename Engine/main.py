@@ -24,6 +24,7 @@ def hello_world():
 def execute_code(unique_code):
     user_api_input = request.args.get('input')
     print(unique_code)
+    unique_code = ObjectId(unique_code)
     # mongo_id = ObjectId(unique_code)
     
     # Retrieve the Python code associated with the unique identifier from MongoDB
@@ -43,7 +44,7 @@ def execute_code(unique_code):
         print(python_code)
         try:
             # Path to your virtual environment's Python interpreter
-            virtualenv_python = os.getcwd()+"/venv/bin/python"
+            virtualenv_python = "/home/dev/Code/Hackathon/Devshouse-2024"+"/venv/bin/python"
 
             # Current working directory
             cwd = os.getcwd()
@@ -107,4 +108,4 @@ print(c)`
     return 'Data added successfully'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

@@ -14,7 +14,6 @@ def parse_json(json_data):
             print("no child")
             temp_code = []
             if not arguments:
-             
                 for i in parent_ids:
                    
                     if json_data["flowChart"][int(i)]["nodeName"] == "system_prompt":
@@ -28,11 +27,28 @@ def parse_json(json_data):
                     elif json_data["flowChart"][int(i)]["nodeName"] == "query":
                       
                         temp_code.append(f"query = node_{i}")
-                    
+                    elif json_data["flowChart"][int(i)]["nodeName"][:5] == "scrap":
+                        temp_code.append(f"index = node_{i}")
                 code = f"node_{node_id} = engineFunctions.{node_name}(user_api_input,{', '.join(temp_code)})"
                    
             else:
-                code = f"node_{node_id} = engineFunctions.{node_name}(user_api_input," + ", ".join([f"{k}='{v}'" for k, v in arguments.items()]) + ", [node_{i} for i in parent_ids])"
+                print("no child and arguments")
+                temp_code = []
+                for i in parent_ids:
+                    if json_data["flowChart"][int(i)]["nodeName"] == "system_prompt":
+                        temp_code.append(f"system_prompt = node_{i}")
+
+                    elif json_data["flowChart"][int(i)]["nodeName"][:9] == "embedding":
+                        temp_code.append(f"index = node_{i}")
+
+                    elif json_data["flowChart"][int(i)]["nodeName"][:5] == "scrap":
+                        temp_code.append(f"index = node_{i}")
+
+                    elif json_data["flowChart"][int(i)]["nodeName"] == "query":
+                        temp_code.append(f"query = node_{i}")
+
+                code = f"node_{node_id} = engineFunctions.{node_name}(user_api_input," + ", ".join([f"{k}='{v}'" for k, v in arguments.items()]) + f", {', '.join(temp_code)})"
+                # code = f"node_{node_id} = engineFunctions.{node_name}(user_api_input," + ", ".join([f"{k}='{v}'" for k, v in arguments.items()]) + ", [node_{i} for i in parent_ids])"
         elif not parent_ids:
             print("no parent")
             code = f"node_{node_id} = engineFunctions.{node_name}(" + ", ".join([f"{k}='{v}'" for k, v in arguments.items()]) + ")"

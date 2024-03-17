@@ -1,18 +1,24 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10-slim
+FROM python:3.10
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY .env main.py codeGenerator.py engineFunctions.py requirements.txt /app/
+COPY . .
 
+# Install virtualenv
+RUN pip install virtualenv
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Create and activate virtual environment
+RUN virtualenv venv
+RUN /bin/bash -c "source /app/venv/bin/activate"
 
-# Make port 80 available to the world outside this container
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Expose port 5000
 EXPOSE 5000
-
 
 # Run main.py when the container launches
 CMD ["python", "main.py"]
