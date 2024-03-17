@@ -44,8 +44,8 @@ def execute_code(unique_code):
         print(python_code)
         try:
             # Path to your virtual environment's Python interpreter
-            virtualenv_python = "/home/dev/Code/Hackathon/Devshouse-2024"+"/venv/bin/python"
-
+            # virtualenv_python = "/home/dev/Code/Hackathon/Devshouse-2024"+"/venv/bin/python"
+            virtualenv_python = os.getcwd()+"/venv/bin/python"
             # Current working directory
             cwd = os.getcwd()
 
